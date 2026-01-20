@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.appp23"
+    namespace = "com.example.mobile2"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.appp23"
+        applicationId = "com.example.mobile2"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
