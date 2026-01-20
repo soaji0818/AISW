@@ -9,12 +9,17 @@ android {
 
     defaultConfig {
         applicationId = "com.example.mobile2"
-        minSdk = 16
+        minSdk = 21
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags += ""
+            }
+        }
     }
 
     buildTypes {
@@ -32,6 +37,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 }
 
