@@ -3,14 +3,15 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
+        android:label="mobil2"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Appp23">
+        android:theme="@style/Theme.mobile2">
 
+        <!-- 스플래시 (런처) -->
         <activity
-            android:name=".ui.AddIngredientActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,5 +19,31 @@
             </intent-filter>
         </activity>
 
+        <!-- 로그인 -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+
+        <!-- 회원가입 -->
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+
+        <!-- 홈 -->
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+
+        <!-- 냉장고 -->
+        <activity
+            android:name=".FridgeActivity"
+            android:exported="true" />
+
+        <!-- 상품 등록 -->
+        <activity
+            android:name=".AddFoodActivity"
+            android:exported="true" />
+
     </application>
+
 </manifest>
