@@ -19,6 +19,14 @@
         <item>음료</item>
         <item>기타</item>
     </string-array>
+
+    <string name="app_name">Recipe</string>
+        <string-array name="sort_options">
+            <item>추천순</item>
+            <item>매칭 높은 순</item>
+            <item>조리시간 짧은 순</item>
+            <item>이름순</item>
+        </string-array>
 </resources>
 
 
