@@ -1,13 +1,12 @@
-package com.example.mobile2
+package com.example.mobile2.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile2.data.FoodItem
 import com.example.mobile2.R
-
+import com.example.mobile2.data.FoodItem
 
 class FoodAdapter(
     private val items: MutableList<FoodItem>

@@ -8,7 +8,7 @@ import com.example.mobile2.MyPageActivity
 import com.example.mobile2.QrActivity
 import com.example.mobile2.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.example.mobile2.recipe.RecipeActivity
+import com.example.mobile2.RecipeActivity
 
 
 object BottomNavUtil {

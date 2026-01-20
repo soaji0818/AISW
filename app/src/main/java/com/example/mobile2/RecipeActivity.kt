@@ -1,4 +1,4 @@
-package com.example.mobile2.recipe
+package com.example.mobile2
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile2.R
+import com.example.mobile2.adapter.RecipeAdapter
 import com.example.mobile2.data.RecipeItem
 import com.example.mobile2.util.BottomNavUtil
 
@@ -41,7 +41,7 @@ class RecipeActivity : AppCompatActivity() {
             resources.getStringArray(R.array.sort_options).toList()
         )
 
-        // ✅ 버튼 누르면 더미 데이터 표시
+        //  버튼 누르면 더미 데이터 표시
         btn.setOnClickListener {
             tvStatus.text = "추천 결과"
 

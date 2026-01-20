@@ -1,12 +1,12 @@
-package com.example.mobile2.recipe
+package com.example.mobile2.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile2.data.RecipeItem
 import com.example.mobile2.R
+import com.example.mobile2.data.RecipeItem
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.VH>() {
 

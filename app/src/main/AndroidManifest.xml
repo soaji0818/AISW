@@ -9,13 +9,13 @@
 
     <application
         android:allowBackup="true"
-        android:label="mobil2"
+        android:label="Mobil2"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.mobile2">
+        android:theme="@style/Theme.Mobile2">
 
-        <!-- 스플래시 (런처) -->
+        <!-- 스플래시 -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -67,11 +67,13 @@
 
         <!-- 레시피 추천 -->
         <activity
-            android:name=".recipe.RecipeActivity"
+            android:name=".RecipeActivity"
             android:exported="true" />
 
-
-
+        <!-- 알림 -->
+        <activity
+            android:name=".AlarmActivity"
+            android:exported="true" />
 
     </application>
 
