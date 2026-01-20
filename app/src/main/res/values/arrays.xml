@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="email_domains">
+        <item>naver.com</item>
+        <item>gmail.com</item>
+        <item>daum.net</item>
+        <item>kakao.com</item>
+        <item>hanmail.net</item>
+        <item>직접입력</item>
+    </string-array>
+
+    <string-array name="ingredient_categories">
+        <item>선택</item>
+        <item>육류</item>
+        <item>채소</item>
+        <item>과일</item>
+        <item>유제품</item>
+        <item>가공식품</item>
+        <item>음료</item>
+        <item>기타</item>
+    </string-array>
+</resources>
+
+
