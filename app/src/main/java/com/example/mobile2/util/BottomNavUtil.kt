@@ -1,8 +1,14 @@
-package com.example.mobile2
+package com.example.mobile2.util
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile2.FridgeActivity
+import com.example.mobile2.HomeActivity
+import com.example.mobile2.MyPageActivity
+import com.example.mobile2.QrActivity
+import com.example.mobile2.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.mobile2.recipe.RecipeActivity
 
 
 object BottomNavUtil {
@@ -16,10 +22,9 @@ object BottomNavUtil {
             val target = when (item.itemId) {
                 R.id.menu_home -> HomeActivity::class.java
                 R.id.menu_fridge -> FridgeActivity::class.java
-                // 아래는 Activity 만들면 주석 해제해서 쓰기
-                // R.id.menu_qr -> QrActivity::class.java
-                // R.id.menu_recipe -> RecipeActivity::class.java
-                // R.id.menu_mypage -> MyPageActivity::class.java
+                R.id.menu_qr -> QrActivity::class.java
+                R.id.menu_recipe -> RecipeActivity::class.java
+                R.id.menu_mypage -> MyPageActivity::class.java
                 else -> null
             }
 
@@ -29,7 +34,7 @@ object BottomNavUtil {
                 }
                 activity.startActivity(intent)
                 activity.overridePendingTransition(0, 0)
-                activity.finish() // 뒤로가기 누르면 탭 이동 히스토리 안 쌓이게
+                activity.finish()
                 true
             } else {
                 false
