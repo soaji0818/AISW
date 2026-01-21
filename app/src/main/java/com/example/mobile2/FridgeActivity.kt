@@ -14,6 +14,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FridgeActivity : AppCompatActivity() {
 
+    //  전체 리스트 / 필터된 리스트 / 어댑터
+    private lateinit var foodAdapter: FoodAdapter
+    private val allFoodList = mutableListOf<FoodItem>()
+    private val filteredList = mutableListOf<FoodItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
@@ -26,17 +31,21 @@ class FridgeActivity : AppCompatActivity() {
         recyclerView.itemAnimator = null
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // ✅ 더미 데이터
-        val dummyList = mutableListOf(
-            FoodItem(
-                name = "사과",
-                category = "과일",
-                expireDate = "2026-11-12",
-                isExpanded = false
+        //  더미 데이터
+        allFoodList.addAll(
+            listOf(
+                FoodItem(1, "사과", "과일", "2026-11-12"),
+                FoodItem(2, "우유", "유제품", "2026-02-01"),
+                FoodItem(3, "상추", "채소", "2026-01-20"),
+                FoodItem(4, "주스", "음료", "2026-03-01")
             )
         )
 
-        recyclerView.adapter = FoodAdapter(dummyList)
+        // 처음엔 전체 보여주기
+        filteredList.addAll(allFoodList)
+
+        foodAdapter = FoodAdapter(filteredList)
+        recyclerView.adapter = foodAdapter
 
         // 상품 추가 버튼
         findViewById<FloatingActionButton>(R.id.btnAdd).setOnClickListener {
@@ -54,9 +63,26 @@ class FridgeActivity : AppCompatActivity() {
         btnCategory.setOnClickListener {
             AlertDialog.Builder(this)
                 .setItems(categories) { _, which ->
-                    btnCategory.text = categories[which]
+                    val selectedCategory = categories[which]
+                    btnCategory.text = selectedCategory
+                    filterByCategory(selectedCategory)
                 }
                 .show()
         }
+    }
+
+    // 카테고리 필터링
+    private fun filterByCategory(category: String) {
+        filteredList.clear()
+
+        if (category == "선택") {
+            filteredList.addAll(allFoodList)
+        } else {
+            filteredList.addAll(
+                allFoodList.filter { it.category == category }
+            )
+        }
+
+        foodAdapter.notifyDataSetChanged()
     }
 }

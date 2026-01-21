@@ -45,6 +45,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
     // CameraX
     implementation("androidx.camera:camera-core:1.3.1")
     implementation("androidx.camera:camera-camera2:1.3.1")
@@ -52,5 +53,11 @@ dependencies {
     implementation("androidx.camera:camera-view:1.3.1")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //QR 코드 생성 / 스캔
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    //파이차트
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }

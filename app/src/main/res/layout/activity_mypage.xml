@@ -86,6 +86,36 @@
                 android:layout_height="1dp"
                 android:background="#EEEEEE" />
 
+            <!-- 쇼핑 사이트 바로가기 -->
+            <TextView
+                android:id="@+id/tvShoppingLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="쇼핑 사이트 바로가기  >"
+                android:textSize="16sp"
+                android:textColor="#111111" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE" />
+
+            <!-- 월간 리포트 -->
+            <TextView
+                android:id="@+id/tvMonthlyReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="월간 리포트  >"
+                android:textSize="16sp"
+                android:textColor="#111111" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE" />
+
             <!-- 로그아웃 -->
             <TextView
                 android:id="@+id/tvLogout"
@@ -102,6 +132,7 @@
                 android:background="#EEEEEE" />
 
         </LinearLayout>
+
     </ScrollView>
 
     <!-- 하단 네비 -->

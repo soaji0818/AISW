@@ -1,6 +1,7 @@
 package com.example.mobile2
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -26,8 +27,21 @@ class MyPageActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvLogout).setOnClickListener {
             showLogoutDialog()
         }
+
+        findViewById<TextView>(R.id.tvShoppingLink).setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.kurly.com/main")
+            )
+            startActivity(intent)
+        }
+
+        findViewById<TextView>(R.id.tvMonthlyReport).setOnClickListener {
+            startActivity(Intent(this, MonthlyReportActivity::class.java))
+        }
     }
 
+    // 로그아웃
     private fun showLogoutDialog() {
         AlertDialog.Builder(this)
             .setMessage("로그아웃 하시겠습니까?")
