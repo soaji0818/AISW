@@ -1,34 +1,42 @@
 package com.example.mobile2.adapter
 
+import android.app.Dialog
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile2.R
-import com.example.mobile2.data.Ingredient
+import com.example.mobile2.QrUtil
+import com.example.mobile2.data.FoodItem
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<Ingredient>()
-    private val expandedPositions = mutableSetOf<Int>()
+    private val items = mutableListOf<FoodItem>()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val summary: View = view.findViewById(R.id.layoutSummary)
         val detail: View = view.findViewById(R.id.layoutDetail)
         val arrow: TextView = view.findViewById(R.id.tvArrow)
-        val title: TextView = view.findViewById(R.id.tvTitle)
-        val sub: TextView = view.findViewById(R.id.tvSub)
-        val price: TextView = view.findViewById(R.id.tvPrice)
-        val detailExpiry: TextView = view.findViewById(R.id.tvDetailExpiry)
-        val detailStatus: TextView = view.findViewById(R.id.tvDetailStatus)
-        val detailStorage: TextView = view.findViewById(R.id.tvDetailStorage)
+
+        val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+        val tvSub: TextView = view.findViewById(R.id.tvSub)
+        val tvRemainDays: TextView = view.findViewById(R.id.tvRemainDays)
+        val tvExpireDate: TextView = view.findViewById(R.id.tvExpireDate)
+        val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        val tvCategoryDetail: TextView = view.findViewById(R.id.tvCategoryDetail)
+
+        val btnShowQr: TextView = view.findViewById(R.id.btnShowQr)
     }
 
-    fun submitList(list: List<Ingredient>) {
+    fun submitList(list: List<FoodItem>) {
         items.clear()
         items.addAll(list)
-        expandedPositions.clear()
         notifyDataSetChanged()
     }
 
@@ -41,39 +49,73 @@ class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        holder.title.text = item.name
-        holder.sub.text = item.category
-        holder.price.text = "유통기한: ${item.expiryDate}"
-        holder.detailExpiry.text = "유통기한: ${item.expiryDate}"
-        holder.detailStatus.text = "재료 상태: ${item.status ?: "알 수 없음"}"
-        holder.detailStorage.text = "보관 방식: ${storageLabel(item.storageType)}"
+        /* ---------- 기본 정보 ---------- */
+        holder.tvTitle.text = item.name
+        holder.tvSub.text = item.category
+        holder.tvCategoryDetail.text = "카테고리: ${item.category}"
+        holder.tvExpireDate.text = "유통기한: ${item.expiryDate}"
 
-        val isExpanded = expandedPositions.contains(position)
-        holder.detail.visibility = if (isExpanded) View.VISIBLE else View.GONE
-        holder.arrow.text = if (isExpanded) "˄" else "˅"
+        /* ---------- 유통기한 계산 ---------- */
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val expire = LocalDate.parse(item.expiryDate, formatter)
+        val today = LocalDate.now()
+        val remainDays = ChronoUnit.DAYS.between(today, expire)
 
-        holder.summary.setOnClickListener {
-            if (expandedPositions.contains(position)) {
-                expandedPositions.remove(position)
-            } else {
-                expandedPositions.add(position)
+        when {
+            remainDays > 0 -> {
+                holder.tvRemainDays.text = "D-$remainDays"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#2563EB"))
             }
-
-            val pos = holder.adapterPosition
-            if (pos != RecyclerView.NO_POSITION) {
-                notifyItemChanged(pos)
+            remainDays == 0L -> {
+                holder.tvRemainDays.text = "D-DAY"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#F59E0B"))
+            }
+            else -> {
+                holder.tvRemainDays.text = "D+${kotlin.math.abs(remainDays)}"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#DC2626"))
             }
         }
 
+        /* ---------- 상태 ---------- */
+        when {
+            remainDays >= 7 -> {
+                holder.tvStatus.text = "재료 상태: 안전"
+                holder.tvStatus.setTextColor(Color.parseColor("#16A34A"))
+            }
+            remainDays >= 3 -> {
+                holder.tvStatus.text = "재료 상태: 주의"
+                holder.tvStatus.setTextColor(Color.parseColor("#F59E0B"))
+            }
+            else -> {
+                holder.tvStatus.text = "재료 상태: 위험"
+                holder.tvStatus.setTextColor(Color.parseColor("#DC2626"))
+            }
+        }
+
+        /* ---------- 펼침 / 접힘 ---------- */
+        holder.detail.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
+        holder.arrow.text = if (item.isExpanded) "˄" else "˅"
+
+        holder.summary.setOnClickListener {
+            item.isExpanded = !item.isExpanded
+            notifyItemChanged(holder.adapterPosition)
+        }
+
+        /* ---------- QR (id 기반) ---------- */
+        holder.btnShowQr.setOnClickListener {
+            showQrDialog(holder.itemView.context, item.id)
+        }
     }
 
     override fun getItemCount(): Int = items.size
 
-    private fun storageLabel(storageType: String): String {
-        return when (storageType.uppercase()) {
-            "FREEZER" -> "냉동"
-            "FRIDGE" -> "냉장"
-            else -> storageType
-        }
+    private fun showQrDialog(context: android.content.Context, foodId: Int) {
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_qr)
+
+        val ivQr = dialog.findViewById<ImageView>(R.id.ivQr)
+        ivQr.setImageBitmap(QrUtil.makeQrBitmap(foodId.toString()))
+
+        dialog.show()
     }
 }

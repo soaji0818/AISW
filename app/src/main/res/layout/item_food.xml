@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--  상단 요약 영역 -->
+        <!-- 상단 요약 영역 -->
         <LinearLayout
             android:id="@+id/layoutSummary"
             android:layout_width="match_parent"
@@ -25,7 +25,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- 이미지 -->
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -34,7 +33,6 @@
                 android:src="@android:drawable/ic_menu_report_image"
                 android:tint="#9CA3AF"/>
 
-            <!-- 텍스트 -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,24 +42,21 @@
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:text="이름"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#111827"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#111827"/>
 
                 <TextView
                     android:id="@+id/tvSub"
-                    android:text="카테고리명"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#6B7280"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
 
-            <!-- 가격 + 화살표 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,32 +64,30 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvPrice"
-                    android:text="유통기한 n일"
+                    android:id="@+id/tvRemainDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="#2563EB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#2563EB"/>
 
                 <TextView
                     android:id="@+id/tvArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="˅"
                     android:textSize="18sp"
                     android:textColor="#9CA3AF"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#EEF2F7"/>
 
-        <!-- 상세 영역 (기본 숨김) -->
+        <!-- 상세 영역 -->
         <LinearLayout
             android:id="@+id/layoutDetail"
             android:layout_width="match_parent"
@@ -104,32 +97,37 @@
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/tvDetailExpiry"
+                android:id="@+id/tvExpireDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="유통기한: 2026.11.12"
                 android:textSize="13sp"
                 android:textColor="#111827"/>
 
             <TextView
-                android:id="@+id/tvDetailStatus"
+                android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="재료 상태: 안전"
+                android:textSize="13sp"
+                android:textColor="#16A34A"
+                android:layout_marginTop="6dp"/>
+
+            <TextView
+                android:id="@+id/tvCategoryDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:textColor="#111827"
                 android:layout_marginTop="6dp"/>
 
             <TextView
-                android:id="@+id/tvDetailStorage"
+                android:id="@+id/btnShowQr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="보관 방식: 냉장"
-                android:textSize="13sp"
-                android:textColor="#111827"
-                android:layout_marginTop="6dp"/>
-
-
+                android:text="QR 보기"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#2563EB"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
 
     </LinearLayout>

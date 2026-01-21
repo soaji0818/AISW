@@ -41,7 +41,6 @@
         android:layout_marginTop="8dp"
         android:textSize="13sp"
         android:textColor="#333333"
-        android:text="치즈의 유통기한이 얼마 남지 않았어요. 유통기간이 지나기 전에 전에 확인해보세요
-"/>
+        android:text="치즈의 유통기한이 얼마 남지 않았어요. 유통기간이 지나기 전에 전에 확인해보세요"/>
 
 </LinearLayout>

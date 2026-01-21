@@ -9,6 +9,7 @@
         android:required="false" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:label="Mobil2"
         android:icon="@mipmap/ic_launcher"
@@ -76,6 +77,12 @@
         <activity
             android:name=".AlarmActivity"
             android:exported="true" />
+
+        <!-- 월간 리포트 -->
+        <activity
+            android:name=".MonthlyReportActivity"
+            android:exported="true" />
+
 
     </application>
 

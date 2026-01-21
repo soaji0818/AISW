@@ -1,6 +1,6 @@
 package com.example.mobile2.api
 
-import com.example.mobile2.data.Ingredient
+import com.example.mobile2.data.FoodItem
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -11,7 +11,7 @@ import java.net.URL
 object Api {
     private const val BASE_URL = "http://192.168.0.17:8080"
 
-    fun getIngredients(): List<Ingredient> {
+    fun getIngredients(): List<FoodItem> {
         val url = URL("$BASE_URL/ingredients")
         val conn = (url.openConnection() as HttpURLConnection).apply {
             requestMethod = "GET"
@@ -27,24 +27,24 @@ object Api {
         if (code !in 200..299) throw RuntimeException(body)
 
         val arr = JSONArray(body)
-        val list = ArrayList<Ingredient>(arr.length())
+        val list = ArrayList<FoodItem>(arr.length())
         for (i in 0 until arr.length()) {
             val o = arr.getJSONObject(i)
             list.add(
-                Ingredient(
-                    id = if (o.has("id") && !o.isNull("id")) o.getLong("id") else null,
+                FoodItem(
+                    id = o.getInt("id"),
                     name = o.getString("name"),
                     category = o.getString("category"),
                     expiryDate = o.getString("expiryDate"),
                     storageType = o.getString("storageType"),
-                    status = if (o.has("status") && !o.isNull("status")) o.getString("status") else null
+                    status = o.getString("status")
                 )
             )
         }
         return list
     }
 
-    fun addIngredient(body: Ingredient): Ingredient {
+    fun addIngredient(body: FoodItem): FoodItem {
         val url = URL("$BASE_URL/ingredients")
         val conn = (url.openConnection() as HttpURLConnection).apply {
             requestMethod = "POST"
@@ -71,13 +71,39 @@ object Api {
         if (code !in 200..299) throw RuntimeException(resp)
 
         val o = JSONObject(resp)
-        return Ingredient(
-            id = if (o.has("id") && !o.isNull("id")) o.getLong("id") else null,
+        return FoodItem(
+            id = o.getInt("id"),
             name = o.getString("name"),
             category = o.getString("category"),
             expiryDate = o.getString("expiryDate"),
             storageType = o.getString("storageType"),
-            status = if (o.has("status") && !o.isNull("status")) o.getString("status") else null
+            status = o.getString("status")
         )
+
     }
+
+    fun getIngredientIds(): List<Int> {
+        val url = URL("$BASE_URL/ingredients/ids")
+        val conn = (url.openConnection() as HttpURLConnection).apply {
+            requestMethod = "GET"
+            connectTimeout = 8000
+            readTimeout = 8000
+        }
+
+        val code = conn.responseCode
+        val stream = if (code in 200..299) conn.inputStream else conn.errorStream
+        val body = stream.bufferedReader().readText()
+        conn.disconnect()
+
+        if (code !in 200..299) throw RuntimeException(body)
+
+        val arr = JSONArray(body)
+        val ids = ArrayList<Int>(arr.length())
+        for (i in 0 until arr.length()) {
+            ids.add(arr.getInt(i))
+        }
+        return ids
+    }
+
+
 }

@@ -45,6 +45,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
     // CameraX
     implementation("androidx.camera:camera-core:1.3.1")
     implementation("androidx.camera:camera-camera2:1.3.1")
@@ -56,5 +57,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("io.coil-kt:coil:2.6.0")
+
+    //QR 코드 생성 / 스캔
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    //파이차트
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 }

@@ -30,8 +30,6 @@ class RecipeActivity : AppCompatActivity() {
         BottomNavUtil.setup(this, R.id.menu_recipe)
 
         val etOwned = findViewById<EditText>(R.id.etOwned)
-        val etQuery = findViewById<EditText>(R.id.etQuery)
-        val spSort = findViewById<Spinner>(R.id.spSort)
         val btn = findViewById<Button>(R.id.btnRecommend)
         tvStatus = findViewById(R.id.tvStatus)
         val rv = findViewById<RecyclerView>(R.id.rvRecipes)
@@ -40,11 +38,6 @@ class RecipeActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
 
-        spSort.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.sort_options).toList()
-        )
 
         // 버튼 누르면 서버 추천 호출
         btn.setOnClickListener {
