@@ -70,7 +70,20 @@ class AddFoodActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            toast("입력 완료: $name / $category / ${expiry} / $storageType")
+            val tempId = (System.currentTimeMillis() % Int.MAX_VALUE).toInt()
+            val qrText = "FOOD_ID=$tempId"
+
+            val intent = intent.apply {
+                putExtra("EXTRA_ID",tempId)
+                putExtra("EXTRA_NAME",name)
+                putExtra("EXTRA_CATEGORY",category)
+                putExtra("EXTRA_EXPIRY",expiry.toString())
+                putExtra("EXTRA_STORAGE",storageType)
+                putExtra("EXTRA_QR_TEXT",qrText)
+            }
+            setResult(RESULT_OK, intent)
+            finish()
+
         }
     }
 

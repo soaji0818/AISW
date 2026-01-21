@@ -34,12 +34,41 @@ class FridgeActivity : AppCompatActivity() {
         //  더미 데이터
         allFoodList.addAll(
             listOf(
-                FoodItem(1, "사과", "과일", "2026-11-12"),
-                FoodItem(2, "우유", "유제품", "2026-02-01"),
-                FoodItem(3, "상추", "채소", "2026-01-20"),
-                FoodItem(4, "주스", "음료", "2026-03-01")
+                FoodItem(
+                    id = 1,
+                    name = "사과",
+                    category = "과일",
+                    expireDate = "2026-11-12",
+                    storageType = "FRIDGE",
+                    qrText = "FOOD_ID=1"
+                ),
+                FoodItem(
+                    id = 2,
+                    name = "우유",
+                    category = "유제품",
+                    expireDate = "2026-02-01",
+                    storageType = "FRIDGE",
+                    qrText = "FOOD_ID=2"
+                ),
+                FoodItem(
+                    id = 3,
+                    name = "상추",
+                    category = "채소",
+                    expireDate = "2026-01-20",
+                    storageType = "FRIDGE",
+                    qrText = "FOOD_ID=3"
+                ),
+                FoodItem(
+                    id = 4,
+                    name = "주스",
+                    category = "음료",
+                    expireDate = "2026-03-01",
+                    storageType = "FRIDGE",
+                    qrText = "FOOD_ID=4"
+                )
             )
         )
+
 
         // 처음엔 전체 보여주기
         filteredList.addAll(allFoodList)

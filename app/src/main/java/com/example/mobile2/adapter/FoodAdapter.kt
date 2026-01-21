@@ -1,14 +1,16 @@
 package com.example.mobile2.adapter
 
-import android.content.Intent
+import android.app.Dialog
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile2.R
 import com.example.mobile2.data.FoodItem
+import com.example.mobile2.QrUtil
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -71,32 +73,34 @@ class FoodAdapter(
             }
         }
 
-        /* ---------------- 기존 펼침/접힘 로직 ---------------- */
+        /* ---------------- 펼침 / 접힘 ---------------- */
         holder.detail.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
         holder.arrow.text = if (item.isExpanded) "˄" else "˅"
 
         holder.summary.setOnClickListener {
             item.isExpanded = !item.isExpanded
-
             val pos = holder.adapterPosition
             if (pos != RecyclerView.NO_POSITION) {
                 notifyItemChanged(pos)
             }
         }
 
-        /* ---------------- QR 보기 ---------------- */
-//        holder.btnShowQr.setOnClickListener {
-//            val qrText = """
-//                NAME=${item.name}
-//                CATEGORY=${item.category}
-//                EXPIRE=${item.expireDate}
-//            """.trimIndent()
-//
-//            val intent = Intent(holder.itemView.context, QrResultActivity::class.java)
-//            intent.putExtra("qrText", qrText)
-//            holder.itemView.context.startActivity(intent)
-//        }
+        /* ---------------- QR 보기 (팝업) ---------------- */
+        holder.btnShowQr.setOnClickListener {
+            showQrDialog(holder.itemView.context, item.qrText)
+        }
     }
 
     override fun getItemCount(): Int = items.size
+
+    /* ---------------- QR Dialog ---------------- */
+    private fun showQrDialog(context: android.content.Context, qrText: String) {
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_qr)
+
+        val ivQr = dialog.findViewById<ImageView>(R.id.ivQr)
+        ivQr.setImageBitmap(QrUtil.makeQrBitmap(qrText))
+
+        dialog.show()
+    }
 }

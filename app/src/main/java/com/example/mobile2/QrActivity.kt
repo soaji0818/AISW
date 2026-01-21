@@ -120,10 +120,12 @@ class QrActivity : AppCompatActivity() {
         isDialogShowing = true
 
         val foodItem = FoodItem(
-            id = foodId,
+            id = 2,
             name = "우유",
             category = "유제품",
-            expireDate = "2026-02-01"
+            expireDate = "2026-02-01",
+            storageType = "FRIDGE",
+            qrText = "FOOD_ID=2"
         )
 
         AlertDialog.Builder(this)
