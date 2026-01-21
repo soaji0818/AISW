@@ -54,10 +54,15 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.coil-kt:coil:2.6.0")
+
     //QR 코드 생성 / 스캔
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
     //파이차트
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 }

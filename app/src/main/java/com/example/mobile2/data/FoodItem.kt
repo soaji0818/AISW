@@ -4,8 +4,8 @@ data class FoodItem(
     val id: Int,
     val name: String,
     val category: String,
-    val expireDate: String,
+    val expiryDate: String,
     val storageType: String,
-    val qrText: String,
+    val status : String,
     var isExpanded: Boolean = false
 )

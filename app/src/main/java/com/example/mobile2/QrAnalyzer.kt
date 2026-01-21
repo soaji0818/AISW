@@ -41,7 +41,6 @@ class QrAnalyzer(
             val result = reader.decode(bitmap)
             onQrDetected(result.text)
         } catch (e: Exception) {
-            // QR 못 찾으면 무시
         } finally {
             image.close()
         }

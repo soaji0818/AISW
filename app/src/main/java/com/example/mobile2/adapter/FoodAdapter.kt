@@ -9,15 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile2.R
-import com.example.mobile2.data.FoodItem
 import com.example.mobile2.QrUtil
+import com.example.mobile2.data.FoodItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class FoodAdapter(
-    private val items: MutableList<FoodItem>
-) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
+class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
+
+    private val items = mutableListOf<FoodItem>()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val summary: View = view.findViewById(R.id.layoutSummary)
@@ -34,6 +34,12 @@ class FoodAdapter(
         val btnShowQr: TextView = view.findViewById(R.id.btnShowQr)
     }
 
+    fun submitList(list: List<FoodItem>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_food, parent, false)
@@ -43,36 +49,34 @@ class FoodAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        /* ---------------- 기본 텍스트 바인딩 ---------------- */
+        /* ---------- 기본 정보 ---------- */
         holder.tvTitle.text = item.name
         holder.tvSub.text = item.category
         holder.tvCategoryDetail.text = "카테고리: ${item.category}"
-        holder.tvExpireDate.text = "유통기한: ${item.expireDate}"
+        holder.tvExpireDate.text = "유통기한: ${item.expiryDate}"
 
-        /* ---------------- 유통기한 계산 ---------------- */
+        /* ---------- 유통기한 계산 ---------- */
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val expire = LocalDate.parse(item.expireDate, formatter)
+        val expire = LocalDate.parse(item.expiryDate, formatter)
         val today = LocalDate.now()
         val remainDays = ChronoUnit.DAYS.between(today, expire)
 
         when {
             remainDays > 0 -> {
                 holder.tvRemainDays.text = "D-$remainDays"
-                holder.tvRemainDays.setTextColor(Color.parseColor("#2563EB")) // 파랑
+                holder.tvRemainDays.setTextColor(Color.parseColor("#2563EB"))
             }
             remainDays == 0L -> {
                 holder.tvRemainDays.text = "D-DAY"
-                holder.tvRemainDays.setTextColor(Color.parseColor("#F59E0B")) // 주황
+                holder.tvRemainDays.setTextColor(Color.parseColor("#F59E0B"))
             }
             else -> {
                 holder.tvRemainDays.text = "D+${kotlin.math.abs(remainDays)}"
-                holder.tvRemainDays.setTextColor(Color.parseColor("#DC2626")) // 🔥 빨강
+                holder.tvRemainDays.setTextColor(Color.parseColor("#DC2626"))
             }
         }
 
-
-
-        /* ---------------- 상태 분기 ---------------- */
+        /* ---------- 상태 ---------- */
         when {
             remainDays >= 7 -> {
                 holder.tvStatus.text = "재료 상태: 안전"
@@ -88,33 +92,29 @@ class FoodAdapter(
             }
         }
 
-        /* ---------------- 펼침 / 접힘 ---------------- */
+        /* ---------- 펼침 / 접힘 ---------- */
         holder.detail.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
         holder.arrow.text = if (item.isExpanded) "˄" else "˅"
 
         holder.summary.setOnClickListener {
             item.isExpanded = !item.isExpanded
-            val pos = holder.adapterPosition
-            if (pos != RecyclerView.NO_POSITION) {
-                notifyItemChanged(pos)
-            }
+            notifyItemChanged(holder.adapterPosition)
         }
 
-        /* ---------------- QR 보기 (팝업) ---------------- */
+        /* ---------- QR (id 기반) ---------- */
         holder.btnShowQr.setOnClickListener {
-            showQrDialog(holder.itemView.context, item.qrText)
+            showQrDialog(holder.itemView.context, item.id)
         }
     }
 
     override fun getItemCount(): Int = items.size
 
-    /* ---------------- QR Dialog ---------------- */
-    private fun showQrDialog(context: android.content.Context, qrText: String) {
+    private fun showQrDialog(context: android.content.Context, foodId: Int) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_qr)
 
         val ivQr = dialog.findViewById<ImageView>(R.id.ivQr)
-        ivQr.setImageBitmap(QrUtil.makeQrBitmap(qrText))
+        ivQr.setImageBitmap(QrUtil.makeQrBitmap(foodId.toString()))
 
         dialog.show()
     }

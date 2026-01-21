@@ -25,7 +25,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- 이미지 -->
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -34,7 +33,6 @@
                 android:src="@android:drawable/ic_menu_report_image"
                 android:tint="#9CA3AF"/>
 
-            <!-- 이름 / 카테고리 -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,14 +57,12 @@
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
 
-            <!-- 남은 유통기한 + 화살표 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:orientation="vertical">
 
-                <!--  유통기한 n일 -->
                 <TextView
                     android:id="@+id/tvRemainDays"
                     android:layout_width="wrap_content"
@@ -86,13 +82,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#EEF2F7"/>
 
-        <!-- 상세 영역 (기본 숨김) -->
+        <!-- 상세 영역 -->
         <LinearLayout
             android:id="@+id/layoutDetail"
             android:layout_width="match_parent"
@@ -101,7 +96,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <!--  실제 유통기한 날짜 -->
             <TextView
                 android:id="@+id/tvExpireDate"
                 android:layout_width="wrap_content"
@@ -109,7 +103,6 @@
                 android:textSize="13sp"
                 android:textColor="#111827"/>
 
-            <!--  재료 상태 (안전/주의/위험) -->
             <TextView
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
@@ -118,7 +111,6 @@
                 android:textColor="#16A34A"
                 android:layout_marginTop="6dp"/>
 
-            <!-- 카테고리 -->
             <TextView
                 android:id="@+id/tvCategoryDetail"
                 android:layout_width="wrap_content"
@@ -127,7 +119,6 @@
                 android:textColor="#111827"
                 android:layout_marginTop="6dp"/>
 
-            <!-- QR 보기 -->
             <TextView
                 android:id="@+id/btnShowQr"
                 android:layout_width="wrap_content"

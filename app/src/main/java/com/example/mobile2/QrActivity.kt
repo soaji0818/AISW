@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -12,11 +13,10 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mobile2.data.FoodItem
-import com.example.mobile2.QrAnalyzer
 import com.example.mobile2.util.BottomNavUtil
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import com.example.mobile2.api.Api
 
 class QrActivity : AppCompatActivity() {
 
@@ -87,7 +87,7 @@ class QrActivity : AppCompatActivity() {
                     it.setAnalyzer(
                         cameraExecutor,
                         QrAnalyzer { qrText ->
-                            Log.d("QR_TEST", "QR 인식됨: $qrText") // ✅ 로그
+                            Log.d("QR_TEST", "QR 인식됨: $qrText") //
                             runOnUiThread {
                                 showFoodItemPopup(qrText)
                             }
@@ -113,40 +113,43 @@ class QrActivity : AppCompatActivity() {
     }
 
     // QR 결과 팝업
-    private fun showFoodItemPopup(qrText: String) {
+    private fun showFoodItemPopup(scannedText: String) {
         if (isDialogShowing) return
 
-        val foodId = qrText.toIntOrNull() ?: return
+        val foodId = scannedText.toIntOrNull() ?: return
         isDialogShowing = true
 
-        val foodItem =  FoodItem(
-            id = 2,
-            name = "우유",
-            category = "유제품",
-            expireDate = "2026-02-01",
-            storageType = "FRIDGE",
-            qrText = "FOOD_ID=2"
-        )
+        Thread {
+            try {
+                val ids = Api.getIngredientIds()
 
-        AlertDialog.Builder(this)
-            .setTitle("재료 정보")
-            .setMessage(
-                """
-                ID: ${foodItem.id}
-                이름: ${foodItem.name}
-                카테고리: ${foodItem.category}
-                유통기한: ${foodItem.expireDate}
-                """.trimIndent()
-            )
-            .setPositiveButton("확인") { dialog, _ ->
-                isDialogShowing = false
-                dialog.dismiss()
+                runOnUiThread {
+                    if (!ids.contains(foodId)) {
+                        isDialogShowing = false
+                        return@runOnUiThread
+                    }
+
+                    val dialogView = layoutInflater.inflate(R.layout.dialog_qr, null)
+                    val ivQr = dialogView.findViewById<ImageView>(R.id.ivQr)
+                    ivQr.setImageBitmap(QrUtil.makeQrBitmap(foodId.toString()))
+
+                    AlertDialog.Builder(this)
+                        .setView(dialogView)
+                        .setOnDismissListener {
+                            isDialogShowing = false
+                        }
+                        .show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                runOnUiThread { isDialogShowing = false }
             }
-            .setOnDismissListener {
-                isDialogShowing = false
-            }
-            .show()
+        }.start()
     }
+
+
+
+
 
     override fun onDestroy() {
         super.onDestroy()

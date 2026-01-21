@@ -6,16 +6,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile2.adapter.RecipeAdapter
-import com.example.mobile2.data.RecipeItem
+import com.example.mobile2.api.RecipeApiClient
 import com.example.mobile2.util.BottomNavUtil
+import kotlinx.coroutines.launch
 
 class RecipeActivity : AppCompatActivity() {
 
     private lateinit var adapter: RecipeAdapter
+    private val recipeApi = RecipeApiClient.api
+    private lateinit var tvStatus: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +31,7 @@ class RecipeActivity : AppCompatActivity() {
 
         val etOwned = findViewById<EditText>(R.id.etOwned)
         val btn = findViewById<Button>(R.id.btnRecommend)
-        val tvStatus = findViewById<TextView>(R.id.tvStatus)
+        tvStatus = findViewById(R.id.tvStatus)
         val rv = findViewById<RecyclerView>(R.id.rvRecipes)
 
         adapter = RecipeAdapter()
@@ -34,28 +39,44 @@ class RecipeActivity : AppCompatActivity() {
         rv.adapter = adapter
 
 
-        //  버튼 누르면 더미 데이터 표시
+        // 버튼 누르면 서버 추천 호출
         btn.setOnClickListener {
-            tvStatus.text = "추천 결과"
+            val raw = etOwned.text.toString().trim()
+            val ingredients = raw
+                .split(Regex("[,\\s]+"))
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .joinToString(",")
+            if (ingredients.isBlank()) {
+                toast("재료를 입력해줘")
+                return@setOnClickListener
+            }
 
-            adapter.submitList(
-                listOf(
-                    RecipeItem(
-                        title = "김치볶음밥",
-                        reason = "집에 있는 재료로 가능",
-                        ingredients = listOf("김치", "밥", "계란"),
-                        steps = listOf("김치 볶기", "밥 넣기", "계란 추가"),
-                        timeMin = 15
-                    ),
-                    RecipeItem(
-                        title = "계란말이",
-                        reason = "간단하고 빠름",
-                        ingredients = listOf("계란", "소금"),
-                        steps = listOf("계란 풀기", "말아서 굽기"),
-                        timeMin = 10
-                    )
-                )
-            )
+            tvStatus.text = "추천 불러오는 중..."
+            loadRecipes(ingredients)
         }
+    }
+
+    private fun loadRecipes(ingredients: String) {
+        lifecycleScope.launch {
+            try {
+                val res = recipeApi.recommendRecipes(ingredients, limit = 10)
+                if (res.isSuccessful) {
+                    val list = res.body().orEmpty()
+                    adapter.submitList(list)
+                    tvStatus.text = "추천 결과 (${list.size})"
+                } else {
+                    toast("추천 실패: ${res.code()}")
+                    tvStatus.text = "추천 실패"
+                }
+            } catch (e: Exception) {
+                toast("네트워크 오류")
+                tvStatus.text = "추천 실패"
+            }
+        }
+    }
+
+    private fun toast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

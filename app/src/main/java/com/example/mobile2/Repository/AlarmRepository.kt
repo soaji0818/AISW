@@ -7,7 +7,7 @@ object AlarmRepository {
     private val alarmList = mutableListOf<AlarmItem>()
 
     fun add(alarm: AlarmItem) {
-        alarmList.add(0, alarm) // 최신 알림 위로
+        alarmList.add(0, alarm)
     }
 
     fun getAll(): List<AlarmItem> {

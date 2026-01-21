@@ -3,16 +3,11 @@ package com.example.mobile2
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.RadioButton
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile2.api.Api
+import com.example.mobile2.data.FoodItem
 import java.time.LocalDate
 
 class AddFoodActivity : AppCompatActivity() {
@@ -36,6 +31,7 @@ class AddFoodActivity : AppCompatActivity() {
         spCategory.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categories.toList())
 
+        /* ---------- 날짜 선택 ---------- */
         btnPickDate.setOnClickListener {
             val now = LocalDate.now()
             DatePickerDialog(
@@ -50,41 +46,54 @@ class AddFoodActivity : AppCompatActivity() {
             ).show()
         }
 
+        /* ---------- 저장 ---------- */
         btnSave.setOnClickListener {
-            val name = etName.text?.toString().orEmpty().trim()
-            val category = spCategory.selectedItem?.toString().orEmpty()
+            val name = etName.text.toString().trim()
+            val category = spCategory.selectedItem.toString()
             val expiry = selectedDate
             val storageType =
                 if (findViewById<RadioButton>(R.id.rbFreezer).isChecked) "FREEZER" else "FRIDGE"
 
-            if (name.isBlank()) {
-                toast("상품 이름을 입력해줘")
-                return@setOnClickListener
+            when {
+                name.isBlank() -> toast("상품 이름을 입력해줘")
+                category == "선택" -> toast("카테고리를 선택해줘")
+                expiry == null -> toast("유통기한을 선택해줘")
+                else -> saveFood(name, category, expiry, storageType)
             }
-            if (category == "선택") {
-                toast("카테고리를 선택해줘")
-                return@setOnClickListener
-            }
-            if (expiry == null) {
-                toast("유통기한을 선택해줘")
-                return@setOnClickListener
-            }
-
-            val tempId = (System.currentTimeMillis() % Int.MAX_VALUE).toInt()
-            val qrText = "FOOD_ID=$tempId"
-
-            val intent = intent.apply {
-                putExtra("EXTRA_ID",tempId)
-                putExtra("EXTRA_NAME",name)
-                putExtra("EXTRA_CATEGORY",category)
-                putExtra("EXTRA_EXPIRY",expiry.toString())
-                putExtra("EXTRA_STORAGE",storageType)
-                putExtra("EXTRA_QR_TEXT",qrText)
-            }
-            setResult(RESULT_OK, intent)
-            finish()
-
         }
+    }
+
+    /* ---------- 서버 저장 ---------- */
+    private fun saveFood(
+        name: String,
+        category: String,
+        expiry: LocalDate,
+        storageType: String
+    ) {
+        Thread {
+            try {
+                Api.addIngredient(
+                    FoodItem(
+                        id = 0, // 서버에서 자동 생성
+                        name = name,
+                        category = category,
+                        expiryDate = expiry.toString(),
+                        storageType = storageType,
+                        status = "SAFE"
+                    )
+                )
+
+                runOnUiThread {
+                    toast("저장 완료!")
+                    finish()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                runOnUiThread {
+                    toast("저장 실패")
+                }
+            }
+        }.start()
     }
 
     private fun toast(msg: String) {
