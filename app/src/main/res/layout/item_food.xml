@@ -104,6 +104,7 @@
             android:visibility="gone">
 
             <TextView
+                android:id="@+id/tvDetailExpiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="유통기한: 2026.11.12"
@@ -111,6 +112,7 @@
                 android:textColor="#111827"/>
 
             <TextView
+                android:id="@+id/tvDetailStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="재료 상태: 안전"
@@ -119,6 +121,7 @@
                 android:layout_marginTop="6dp"/>
 
             <TextView
+                android:id="@+id/tvDetailStorage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="보관 방식: 냉장"

@@ -9,7 +9,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 object Api {
-    private const val BASE_URL = "http://10.0.2.2:8080"
+    private const val BASE_URL = "http://192.168.0.17:8080"
 
     fun getIngredients(): List<Ingredient> {
         val url = URL("$BASE_URL/ingredients")

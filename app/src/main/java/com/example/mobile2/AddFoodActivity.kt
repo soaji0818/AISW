@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile2.api.Api
+import com.example.mobile2.data.Ingredient
 import java.time.LocalDate
 
 class AddFoodActivity : AppCompatActivity() {
@@ -70,7 +72,29 @@ class AddFoodActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            toast("입력 완료: $name / $category / ${expiry} / $storageType")
+            Thread {
+                try {
+                    val saved = Api.addIngredient(
+                        Ingredient(
+                            id = null,
+                            name = name,
+                            category = category,
+                            expiryDate = expiry.toString(),
+                            storageType = storageType,
+                            status = null
+                        )
+                    )
+
+                    runOnUiThread {
+                        toast("저장 완료!")
+                        finish()
+                    }
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        toast("저장 실패")
+                    }
+                }
+            }.start()
         }
     }
 
