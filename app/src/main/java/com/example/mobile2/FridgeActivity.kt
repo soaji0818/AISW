@@ -6,15 +6,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile2.Repository.AlarmRepository
 import com.example.mobile2.adapter.FoodAdapter
+import com.example.mobile2.data.AlarmItem
 import com.example.mobile2.data.FoodItem
 import com.example.mobile2.util.BottomNavUtil
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class FridgeActivity : AppCompatActivity() {
 
-    //  전체 리스트 / 필터된 리스트 / 어댑터
+    // 전체 리스트 / 필터된 리스트 / 어댑터
     private lateinit var foodAdapter: FoodAdapter
     private val allFoodList = mutableListOf<FoodItem>()
     private val filteredList = mutableListOf<FoodItem>()
@@ -31,7 +37,7 @@ class FridgeActivity : AppCompatActivity() {
         recyclerView.itemAnimator = null
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //  더미 데이터
+        // ================== 더미 데이터 ==================
         allFoodList.addAll(
             listOf(
                 FoodItem(
@@ -54,7 +60,7 @@ class FridgeActivity : AppCompatActivity() {
                     id = 3,
                     name = "상추",
                     category = "채소",
-                    expireDate = "2026-01-20",
+                    expireDate = "2026-01-02", // 🔥 유통기한 지남
                     storageType = "FRIDGE",
                     qrText = "FOOD_ID=3"
                 ),
@@ -69,6 +75,8 @@ class FridgeActivity : AppCompatActivity() {
             )
         )
 
+        // ⭐ 유통기한 만료 체크 (여기서 알림 생성)
+        checkExpiredFoods(allFoodList)
 
         // 처음엔 전체 보여주기
         filteredList.addAll(allFoodList)
@@ -85,6 +93,7 @@ class FridgeActivity : AppCompatActivity() {
         setupCategoryButton()
     }
 
+    // ================== 카테고리 필터 ==================
     private fun setupCategoryButton() {
         val btnCategory = findViewById<MaterialButton>(R.id.btnCategory)
         val categories = resources.getStringArray(R.array.ingredient_categories)
@@ -100,7 +109,6 @@ class FridgeActivity : AppCompatActivity() {
         }
     }
 
-    // 카테고리 필터링
     private fun filterByCategory(category: String) {
         filteredList.clear()
 
@@ -113,5 +121,28 @@ class FridgeActivity : AppCompatActivity() {
         }
 
         foodAdapter.notifyDataSetChanged()
+    }
+
+    // ================== 유통기한 만료 알림 로직 ==================
+    private fun checkExpiredFoods(foodList: List<FoodItem>) {
+        val today = LocalDate.now()
+
+        foodList.forEach { food ->
+            val expire = LocalDate.parse(food.expireDate)
+
+            if (expire.isBefore(today)) {
+                val alarm = AlarmItem(
+                    title = "유통기한 알림",
+                    content = "${food.name}의 유통기한이 지났어요.\n지금 확인해보세요.",
+                    time = getCurrentTimeString()
+                )
+                AlarmRepository.add(alarm)
+            }
+        }
+    }
+
+    private fun getCurrentTimeString(): String {
+        val formatter = DateTimeFormatter.ofPattern("a h:mm", Locale.KOREA)
+        return LocalDateTime.now().format(formatter)
     }
 }

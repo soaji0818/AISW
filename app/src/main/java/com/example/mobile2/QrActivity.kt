@@ -112,14 +112,14 @@ class QrActivity : AppCompatActivity() {
         }, ContextCompat.getMainExecutor(this))
     }
 
-    // 🔥 QR 결과 팝업
+    // QR 결과 팝업
     private fun showFoodItemPopup(qrText: String) {
         if (isDialogShowing) return
 
         val foodId = qrText.toIntOrNull() ?: return
         isDialogShowing = true
 
-        val foodItem = FoodItem(
+        val foodItem =  FoodItem(
             id = 2,
             name = "우유",
             category = "유제품",

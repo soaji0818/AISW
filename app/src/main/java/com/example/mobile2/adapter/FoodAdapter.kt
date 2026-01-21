@@ -55,7 +55,22 @@ class FoodAdapter(
         val today = LocalDate.now()
         val remainDays = ChronoUnit.DAYS.between(today, expire)
 
-        holder.tvRemainDays.text = "D-$remainDays"
+        when {
+            remainDays > 0 -> {
+                holder.tvRemainDays.text = "D-$remainDays"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#2563EB")) // 파랑
+            }
+            remainDays == 0L -> {
+                holder.tvRemainDays.text = "D-DAY"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#F59E0B")) // 주황
+            }
+            else -> {
+                holder.tvRemainDays.text = "D+${kotlin.math.abs(remainDays)}"
+                holder.tvRemainDays.setTextColor(Color.parseColor("#DC2626")) // 🔥 빨강
+            }
+        }
+
+
 
         /* ---------------- 상태 분기 ---------------- */
         when {

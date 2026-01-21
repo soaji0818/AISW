@@ -39,11 +39,11 @@ class QrAnalyzer(
 
         try {
             val result = reader.decode(bitmap)
-            onQrDetected(result.text)   // ✅ 여기서만 콜백
+            onQrDetected(result.text)
         } catch (e: Exception) {
             // QR 못 찾으면 무시
         } finally {
-            image.close()              // ✅ 이거 없으면 프레임 멈춤
+            image.close()
         }
     }
 

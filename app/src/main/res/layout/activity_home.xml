@@ -63,7 +63,7 @@
                     android:tint="#111111" />
             </LinearLayout>
 
-            <!-- 🔔 알림 요약 (ID + 클릭 기능만 추가됨) -->
+            <!-- 알림 요약 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAlarmSummary"
                 android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
                         android:layout_weight="1"
-                        android:text="알림 요약"
+                        android:text="알림 목록"
                         android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />
