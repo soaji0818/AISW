@@ -1,0 +1,47 @@
+package com.example.mobile2.util
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile2.FridgeActivity
+import com.example.mobile2.HomeActivity
+import com.example.mobile2.MyPageActivity
+import com.example.mobile2.QrActivity
+import com.example.mobile2.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.mobile2.RecipeActivity
+
+
+object BottomNavUtil {
+
+    fun setup(activity: AppCompatActivity, selectedItemId: Int) {
+        val bottomNav = activity.findViewById<BottomNavigationView>(R.id.bottomNav)
+
+        bottomNav.setOnItemSelectedListener { item ->
+            if (item.itemId == selectedItemId) return@setOnItemSelectedListener true
+
+            val target = when (item.itemId) {
+                R.id.menu_home -> HomeActivity::class.java
+                R.id.menu_fridge -> FridgeActivity::class.java
+                R.id.menu_qr -> QrActivity::class.java
+                R.id.menu_recipe -> RecipeActivity::class.java
+                R.id.menu_mypage -> MyPageActivity::class.java
+                else -> null
+            }
+
+            if (target != null) {
+                val intent = Intent(activity, target).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                }
+                activity.startActivity(intent)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
+                true
+            } else {
+                false
+            }
+        }
+
+        // 현재 탭 선택 표시
+        bottomNav.selectedItemId = selectedItemId
+    }
+}

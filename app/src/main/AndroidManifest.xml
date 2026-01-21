@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
-        android:label="@string/app_name"
+        android:label="Mobil2"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Appp23">
+        android:theme="@style/Theme.Mobile2">
 
+        <!-- 스플래시 -->
         <activity
-            android:name=".ui.AddIngredientActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,5 +26,62 @@
             </intent-filter>
         </activity>
 
+        <!-- 로그인 -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+
+        <!-- 회원가입 -->
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+
+        <!-- 홈 -->
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+
+        <!-- 냉장고 -->
+        <activity
+            android:name=".FridgeActivity"
+            android:exported="true" />
+
+        <!-- 상품 등록 -->
+        <activity
+            android:name=".AddFoodActivity"
+            android:exported="true" />
+
+        <!-- QR 등록 -->
+        <activity
+            android:name=".QrActivity"
+            android:exported="true" />
+
+        <!-- 마이페이지 -->
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="true" />
+
+        <!-- 개인정보 수정 -->
+        <activity
+            android:name=".EditPageActivity"
+            android:exported="true" />
+
+        <!-- 레시피 추천 -->
+        <activity
+            android:name=".RecipeActivity"
+            android:exported="true" />
+
+        <!-- 알림 -->
+        <activity
+            android:name=".AlarmActivity"
+            android:exported="true" />
+
+        <!-- 월간 리포트 -->
+        <activity
+            android:name=".MonthlyReportActivity"
+            android:exported="true" />
+
+
     </application>
+
 </manifest>

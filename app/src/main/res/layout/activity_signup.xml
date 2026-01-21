@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -35,13 +36,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="회원가입"
+                    android:textColor="#111111"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginStart="16dp" />
             </LinearLayout>
 
-            <!-- 이름 입력 (주민번호 대신) -->
+            <!-- 이름 입력 -->
             <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="이름"
@@ -55,13 +58,12 @@
                 android:background="#DDDDDD"
                 android:layout_marginHorizontal="16dp" />
 
-            <!-- 휴대폰번호 입력 -->
+            <!-- 아이디 입력 -->
             <EditText
+                android:id="@+id/etId"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="휴대폰번호"
-                android:inputType="phone"
-                android:maxLength="11"
+                android:hint="아이디"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent" />
@@ -82,10 +84,11 @@
                 android:gravity="center_vertical">
 
                 <EditText
+                    android:id="@+id/etEmailId"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:hint="아이디(이메일)"
+                    android:hint="이메일"
                     android:background="@android:color/transparent" />
 
                 <TextView
@@ -94,11 +97,14 @@
                     android:text="@"
                     android:layout_marginHorizontal="6dp" />
 
-                <TextView
+                <Spinner
+                    android:id="@+id/email_domains"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="naver.com ▼"
-                    android:layout_gravity="center_vertical" />
+                    android:spinnerMode="dropdown"
+                    android:background="@null"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
             </LinearLayout>
 
             <View
@@ -109,6 +115,7 @@
 
             <!-- 비밀번호 -->
             <EditText
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="비밀번호"
@@ -125,6 +132,7 @@
 
             <!-- 비밀번호 확인 -->
             <EditText
+                android:id="@+id/etPasswordConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="비밀번호 확인"
@@ -144,18 +152,18 @@
 
     <!-- 가입 완료 버튼 -->
     <com.google.android.material.button.MaterialButton
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btnSignUpComplete"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="가입완료"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:backgroundTint="#2563EB"
+        android:enabled="false"
+        android:backgroundTint="#D1D5DB"
         app:cornerRadius="0dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
         android:insetTop="0dp"
-        android:insetBottom="0dp"/>
+        android:insetBottom="0dp" />
 
 </LinearLayout>

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.appp23"
+    namespace = "com.example.mobile2"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.appp23"
+        applicationId = "com.example.mobile2"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -45,4 +45,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // CameraX
+    implementation("androidx.camera:camera-core:1.3.1")
+    implementation("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //QR 코드 생성 / 스캔
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    //파이차트
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

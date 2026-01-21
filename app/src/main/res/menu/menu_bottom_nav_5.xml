@@ -3,26 +3,27 @@
 
     <item
         android:id="@+id/menu_home"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/ic_home"
         android:title="홈" />
 
     <item
         android:id="@+id/menu_fridge"
-        android:icon="@android:drawable/ic_menu_send"
+        android:icon="@drawable/ic_fridge"
         android:title="냉장고" />
 
     <item
-        android:id="@+id/nav_product"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:id="@+id/menu_qr"
+        android:icon="@drawable/ic_qr"
         android:title="QR 스캔" />
 
     <item
-        android:id="@+id/nav_more"
-        android:icon="@android:drawable/ic_menu_more"
-        android:title="레시피 추천" />
+        android:id="@+id/menu_recipe"
+        android:icon="@drawable/ic_recipe"
+        android:title="레시피" />
 
     <item
-        android:id="@+id/nav_more"
-        android:icon="@android:drawable/ic_menu_more"
+        android:id="@+id/menu_mypage"
+        android:icon="@drawable/ic_mypage"
         android:title="마이페이지" />
+
 </menu>

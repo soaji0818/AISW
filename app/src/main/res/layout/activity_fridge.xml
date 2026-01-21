@@ -65,31 +65,51 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
+            <!-- 카테고리 -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnTab1"
+                android:id="@+id/btnCategory"
+                android:layout_width="80dp"
+                android:layout_height="36dp"
                 android:text="카테고리"
-                android:textColor="#FFFFFF"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
                 android:textAllCaps="false"
-                app:backgroundTint="#2F80ED"
-                app:cornerRadius="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"/>
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="8dp"
+                app:backgroundTint="#2F6BFF"/>
 
+            <!-- 유통기한 임박순 -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnTab2"
+                android:id="@+id/btnExpire"
+                android:layout_width="120dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+
                 android:text="유통기한 임박순"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp"
                 android:textAllCaps="false"
-                android:textColor="#374151"
-                app:backgroundTint="#EEF2F7"
-                app:cornerRadius="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"/>
+
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+
+                app:cornerRadius="8dp"
+                app:backgroundTint="#EEF1F5"/>
         </LinearLayout>
+
     </HorizontalScrollView>
 
     <!-- 상품 리스트 (RecyclerView) -->
@@ -121,10 +141,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         app:menu="@menu/menu_bottom_nav_5"
-        app:itemIconTint="#2563EB"
-        app:itemTextColor="#2563EB"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
