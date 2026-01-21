@@ -75,12 +75,11 @@ class FridgeActivity : AppCompatActivity() {
             )
         )
 
-        // ⭐ 유통기한 만료 체크 (여기서 알림 생성)
+        // 유통기한 만료 체크 (여기서 알림 생성)
         checkExpiredFoods(allFoodList)
 
         // 처음엔 전체 보여주기
         filteredList.addAll(allFoodList)
-
         foodAdapter = FoodAdapter(filteredList)
         recyclerView.adapter = foodAdapter
 
