@@ -1,12 +1,12 @@
 package com.example.mobile2
 
+import com.example.mobile2.data.FoodItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile2.data.FoodItem
-import com.example.mobile2.R
 
 
 class FoodAdapter(
@@ -17,6 +17,8 @@ class FoodAdapter(
         val summary: View = view.findViewById(R.id.layoutSummary)
         val detail: View = view.findViewById(R.id.layoutDetail)
         val arrow: TextView = view.findViewById(R.id.tvArrow)
+
+        val ivQr: ImageView = view.findViewById(R.id.ivQr)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +33,12 @@ class FoodAdapter(
         // 상태 반영
         holder.detail.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
         holder.arrow.text = if (item.isExpanded) "˄" else "˅"
+
+        if(item.isExpanded){
+            holder.ivQr.setImageBitmap(
+                QrUtil.makeQrBitmap(item.qrText)
+            )
+        }
 
         holder.summary.setOnClickListener {
             // 상태 토글
