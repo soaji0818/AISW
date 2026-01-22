@@ -87,27 +87,6 @@
                 app:cornerRadius="8dp"
                 app:backgroundTint="#2F6BFF"/>
 
-            <!-- 유통기한 임박순 -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnExpire"
-                android:layout_width="120dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="12dp"
-
-                android:text="유통기한 임박순"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp"
-                android:textAllCaps="false"
-
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-
-                app:cornerRadius="8dp"
-                app:backgroundTint="#EEF1F5"/>
         </LinearLayout>
 
     </HorizontalScrollView>

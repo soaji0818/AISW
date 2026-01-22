@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="이름"
+                android:textColor="#111111"
                 android:inputType="textPersonName"
                 android:layout_marginHorizontal="16dp"
                 android:background="@android:color/transparent" />
@@ -64,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="아이디"
+                android:textColor="#111111"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent" />
@@ -89,18 +91,21 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:hint="이메일"
+                    android:textColor="#111111"
                     android:background="@android:color/transparent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@"
+                    android:textColor="#111111"
                     android:layout_marginHorizontal="6dp" />
 
                 <Spinner
                     android:id="@+id/email_domains"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#111111"
                     android:spinnerMode="dropdown"
                     android:background="@null"
                     android:paddingStart="8dp"
@@ -119,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="비밀번호"
+                android:textColor="#111111"
                 android:inputType="textPassword"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
@@ -136,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="비밀번호 확인"
+                android:textColor="#111111"
                 android:inputType="textPassword"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"

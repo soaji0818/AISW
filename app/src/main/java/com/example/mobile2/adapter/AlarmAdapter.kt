@@ -8,9 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile2.R
 import com.example.mobile2.data.AlarmItem
 
-class AlarmAdapter(
-    private val items: List<AlarmItem>
-) : RecyclerView.Adapter<AlarmAdapter.VH>() {
+class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.VH>() {
+
+    private val items = mutableListOf<AlarmItem>()
+
+    fun submitList(list: List<AlarmItem>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(parent.context)
@@ -36,3 +42,4 @@ class AlarmAdapter(
         }
     }
 }
+

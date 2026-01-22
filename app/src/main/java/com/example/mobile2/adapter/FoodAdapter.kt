@@ -1,6 +1,7 @@
 package com.example.mobile2.adapter
 
-import android.app.Dialog
+import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile2.R
 import com.example.mobile2.QrUtil
+import com.example.mobile2.R
 import com.example.mobile2.data.FoodItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -101,7 +102,7 @@ class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
             notifyItemChanged(holder.adapterPosition)
         }
 
-        /* ---------- QR (id 기반) ---------- */
+        /* ---------- QR 보기 ---------- */
         holder.btnShowQr.setOnClickListener {
             showQrDialog(holder.itemView.context, item.id)
         }
@@ -109,13 +110,17 @@ class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = items.size
 
-    private fun showQrDialog(context: android.content.Context, foodId: Int) {
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.dialog_qr)
+    /* ---------- QR 다이얼로그 (정석 버전) ---------- */
+    private fun showQrDialog(context: Context, foodId: Int) {
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.dialog_show_qr, null)
 
-        val ivQr = dialog.findViewById<ImageView>(R.id.ivQr)
+        val ivQr = view.findViewById<ImageView>(R.id.ivQr)
         ivQr.setImageBitmap(QrUtil.makeQrBitmap(foodId.toString()))
 
-        dialog.show()
+        AlertDialog.Builder(context)
+            .setView(view)
+            .setPositiveButton("닫기", null)
+            .show()
     }
 }

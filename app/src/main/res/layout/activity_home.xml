@@ -156,7 +156,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="지금 만들 수 있는 메뉴"
+                                    android:text="지금 소진하면 좋아요"
                                     android:textColor="#9A9A9A"
                                     android:textSize="12sp" />
 
@@ -167,17 +167,17 @@
                                     android:background="#FF6A3D"
                                     android:paddingHorizontal="8dp"
                                     android:paddingVertical="3dp"
-                                    android:text="NEW"
+                                    android:text="위험"
                                     android:textColor="#FFFFFF"
                                     android:textSize="10sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tvSoonExpireItems"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="참치김치찌개"
                                 android:textColor="#111111"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -207,7 +207,7 @@
                         android:layout_marginEnd="18dp" />
 
                     <LinearLayout
-                        android:id="@+id/layoutRecipeSearch"
+                        android:id="@+id/layoutfridge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -218,7 +218,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="레시피 검색하기"
+                            android:text="냉장고 확인하기"
                             android:textColor="#222222"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -265,21 +265,16 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tvFoodCount"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0개"
-                            android:textColor="#000000"
                             android:textSize="26sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="#111111"/>
 
-                        <TextView
-                            android:id="@+id/tvArrowBalance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="›"
-                            android:textColor="#777777"
-                            android:textSize="22sp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
